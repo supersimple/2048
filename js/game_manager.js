@@ -9,7 +9,9 @@ function GameManager(size, InputManager, Actuator, ScoreManager) {
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
-
+  
+  this.names = ['','adam','holdy','michael','ryan','jeff','eric','daniel','todd','doug','mick','cory']
+  
   this.setup();
 }
 
@@ -60,7 +62,9 @@ GameManager.prototype.addStartTiles = function () {
 GameManager.prototype.addRandomTile = function () {
   if (this.grid.cellsAvailable()) {
     var value = Math.random() < 0.9 ? 2 : 4;
-    var tile = new Tile(this.grid.randomAvailableCell(), value);
+    var name = this.names[Math.log(value) / Math.LN2]
+    console.log('addRandomTile',value, name);
+    var tile = new Tile(this.grid.randomAvailableCell(), value, name);
 
     this.grid.insertTile(tile);
   }
@@ -124,10 +128,12 @@ GameManager.prototype.move = function (direction) {
       if (tile) {
         var positions = self.findFarthestPosition(cell, vector);
         var next      = self.grid.cellContent(positions.next);
-
+        
+        var name = self.names[Math.log(tile.value * 2) / Math.LN2]
         // Only one merger per row traversal?
         if (next && next.value === tile.value && !next.mergedFrom) {
-          var merged = new Tile(positions.next, tile.value * 2);
+          console.log('move',tile.value * 2, name);
+          var merged = new Tile(positions.next, tile.value * 2, name);
           merged.mergedFrom = [tile, next];
 
           self.grid.insertTile(merged);
