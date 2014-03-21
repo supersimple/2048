@@ -685,8 +685,19 @@ hr {
     margin-top: 20px; }
 
   .tile .tile-inner {
-    font-size: 35px; }
-
+    font-size: 12px; }
+    
+  .tile .tile-inner img{
+    width:43px;
+    height:43px;
+    margin:5px;
+    }
+  .tile .tile-inner strong{
+    font-size:12px;
+    line-height:12px;
+    bottom:2px;
+    right:5px;
+  }  
   .game-message p {
     font-size: 30px !important;
     height: 30px !important;
